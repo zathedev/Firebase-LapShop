@@ -1,5 +1,6 @@
 import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js";
-import { auth } from "./firebaseconfig.js"
+import { auth } from "./firebaseconfig.js";
+import { getDataFromDB } from "./utils.js";
 
 const form = document.getElementById("form")
 const email = document.getElementById("email")
@@ -32,9 +33,12 @@ form.addEventListener("submit", (event) => {
     }
 
     signInWithEmailAndPassword(auth, email.value.trim(), password.value.trim())
-        .then((userCredential) => {
+        .then(async (userCredential) => {
             const user = userCredential.user;
-            console.log("User signed in:", user);
+            const uid = user.uid;
+
+            const userInfo = await getDataFromDB(uid, "users")
+            const userRole = userInfo[0].role
 
             // const userID = localStorage.getItem(userData); // for single variable
             // localStorage.clear(); // clearing all local storage
@@ -45,7 +49,14 @@ form.addEventListener("submit", (event) => {
             //     userData = JSON.parse(userData);
             //     // const signedInUserId = userData.uid
             // }
-            window.location = "../pages/dashboard.html"
+
+            if (userRole === "seller") {
+                window.location = "../pages/seller_dashboard.html"
+            } else if (userRole === 'admin') {
+                window.location = "../pages/admin_dashboard.html"
+            } else {
+                window.location = "../pages/dashboard.html"
+            }
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -60,6 +71,8 @@ form.addEventListener("submit", (event) => {
                 passwordError.textContent = "Incorrect password.";
             } else if (errorCode === 'auth/invalid-credential') {
                 passwordError.textContent = "The provided credentials are invalid. Please check your input and try again.";
+            } else if (errorCode === 'auth/network-request-failed') {
+                passwordError.textContent = "No internet access";
             } else {
                 console.log(errorMessage);
             }
