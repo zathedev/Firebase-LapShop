@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopNova - Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define the main layout: Sidebar + Content */
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+        @media (min-width: 1024px) {
+            .admin-layout {
+                grid-template-columns: 280px 1fr;
+            }
+        }
+        /* Style the active sidebar link */
+        .sidebar-link.active {
+            background-color: #5b21b6; /* deep purple-700 */
+            color: white;
+            border-left: 4px solid #c4b5fd; /* light purple-300 */
+        }
+        /* Hide all content views initially */
+        .admin-content-view { display: none; }
+        .admin-content-view.active { display: block; }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100">
+
+    <!-- Header / Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 h-16 flex justify-between items-center">
+            <!-- Logo/Title -->
+            <h1 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-purple-700">
+                ShopNova <span class="text-sm font-light text-gray-500 ml-1">Admin Panel</span>
+            </h1>
+            
+            <!-- Admin Profile Dropdown -->
+            <div class="flex items-center">
+                <span class="text-sm text-gray-600 mr-4 hidden md:inline">Welcome, Super User!</span>
+                <div class="relative">
+                    <button id="admin-menu-button" 
+                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-purple-500 transition duration-150" 
+                            aria-expanded="false" 
+                            aria-haspopup="true">
+                        <span class="sr-only">Open admin menu</span>
+                        <!-- Admin Profile Pic (Avatar placeholder) -->
+                        <div class="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-semibold shadow-md">
+                            SU
+                        </div>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div id="admin-menu" 
+                         class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden" 
+                         role="menu" aria-orientation="vertical" aria-labelledby="admin-menu-button">
+                        
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                            <span class="inline-block w-4 mr-2">⚙️</span> Profile Settings
+                        </a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
+                            <span class="inline-block w-4 mr-2">💬</span> Support Tickets
+                        </a>
+                        <a href="index.html" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50" role="menuitem">
+                            <span class="inline-block w-4 mr-2">🚪</span> Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Grid -->
+    <div class="admin-layout">
+        
+        <!-- Sidebar (Hidden on mobile, toggled by future button, shown on large screens) -->
+        <aside id="sidebar" class="bg-gray-800 text-white p-4 h-full hidden lg:block">
+            <h2 class="text-xl font-semibold text-gray-200 mb-6 border-b border-gray-700 pb-3">Navigation</h2>
+            <nav class="space-y-2">
+                <button data-view="overview" class="sidebar-link active w-full text-left flex items-center p-3 rounded-lg hover:bg-purple-700 transition duration-150">
+                    <span class="text-xl mr-3">🏠</span> Dashboard Overview
+                </button>
+                <button data-view="users" class="sidebar-link w-full text-left flex items-center p-3 rounded-lg hover:bg-purple-700 transition duration-150">
+                    <span class="text-xl mr-3">👥</span> User Management
+                </button>
+                <button data-view="orders" class="sidebar-link w-full text-left flex items-center p-3 rounded-lg hover:bg-purple-700 transition duration-150">
+                    <span class="text-xl mr-3">📦</span> Order Review
+                </button>
+                <button data-view="products" class="sidebar-link w-full text-left flex items-center p-3 rounded-lg hover:bg-purple-700 transition duration-150">
+                    <span class="text-xl mr-3">🛒</span> Product Catalog
+                </button>
+                <button data-view="settings" class="sidebar-link w-full text-left flex items-center p-3 rounded-lg hover:bg-purple-700 transition duration-150">
+                    <span class="text-xl mr-3">⚙️</span> System Settings
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="p-4 sm:p-8 lg:p-10">
+
+            <!-- View 1: Dashboard Overview -->
+            <section id="overview" class="admin-content-view active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">Platform Overview</h2>
+                
+                <!-- Stats Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
+                    <!-- Card 1: Total Sales -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-b-4 border-indigo-500">
+                        <p class="text-sm font-medium text-gray-500 uppercase">Total Revenue</p>
+                        <p class="text-4xl font-extrabold text-gray-900 mt-1">$45,231.89</p>
+                        <p class="text-sm text-green-600 mt-2">▲ 12% vs last month</p>
+                    </div>
+                    <!-- Card 2: New Users -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-b-4 border-purple-500">
+                        <p class="text-sm font-medium text-gray-500 uppercase">New Users</p>
+                        <p class="text-4xl font-extrabold text-gray-900 mt-1">1,245</p>
+                        <p class="text-sm text-green-600 mt-2">▲ 4% vs last month</p>
+                    </div>
+                    <!-- Card 3: Pending Orders -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-b-4 border-yellow-500">
+                        <p class="text-sm font-medium text-gray-500 uppercase">Pending Orders</p>
+                        <p class="text-4xl font-extrabold text-gray-900 mt-1">189</p>
+                        <p class="text-sm text-red-600 mt-2">▼ 5% vs last month</p>
+                    </div>
+                    <!-- Card 4: Active Sellers -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 border-b-4 border-pink-500">
+                        <p class="text-sm font-medium text-gray-500 uppercase">Active Sellers</p>
+                        <p class="text-4xl font-extrabold text-gray-900 mt-1">320</p>
+                        <p class="text-sm text-green-600 mt-2">▲ 1% vs last month</p>
+                    </div>
+                </div>
+
+                <!-- Recent Activities Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">Recent Site Activity</h3>
+                    <ul class="divide-y divide-gray-200">
+                        <li class="py-3 flex justify-between items-center text-sm">
+                            <span>**Order #9876** placed by Jane Doe.</span>
+                            <span class="text-gray-500">1 minute ago</span>
+                        </li>
+                        <li class="py-3 flex justify-between items-center text-sm">
+                            <span>New Seller **TechSupply Co.** registered.</span>
+                            <span class="text-gray-500">45 minutes ago</span>
+                        </li>
+                        <li class="py-3 flex justify-between items-center text-sm">
+                            <span>**Order #9875** payment failed.</span>
+                            <span class="text-gray-500">2 hours ago</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- View 2: User Management (Placeholder) -->
+            <section id="users" class="admin-content-view">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">User Management</h2>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <p class="text-gray-600">Here you can view, edit, ban, or promote user and seller accounts.</p>
+                    <div class="mt-4 p-4 bg-indigo-50 border-l-4 border-indigo-400 text-indigo-700 rounded">
+                        Mock Table: User listing goes here (e.g., John Doe - Consumer, Vendor Co. - Seller).
+                    </div>
+                </div>
+            </section>
+
+            <!-- View 3: Order Review (Placeholder) -->
+            <section id="orders" class="admin-content-view">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">Order Review</h2>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <p class="text-gray-600">Review, approve, or cancel pending and completed orders.</p>
+                    <div class="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 rounded">
+                        Mock Table: List of all orders with status and values.
+                    </div>
+                </div>
+            </section>
+
+            <!-- View 4: Product Catalog (Placeholder) -->
+            <section id="products" class="admin-content-view">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">Product Catalog</h2>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <p class="text-gray-600">Manage all products across all sellers, approve new listings, or remove violating products.</p>
+                    <div class="mt-4 p-4 bg-pink-50 border-l-4 border-pink-400 text-pink-700 rounded">
+                        Mock Table: Comprehensive product list with moderation actions.
+                    </div>
+                </div>
+            </section>
+
+            <!-- View 5: System Settings (Placeholder) -->
+            <section id="settings" class="admin-content-view">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">System Settings</h2>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <p class="text-gray-600">Configure global site parameters, security policies, and payment gateways.</p>
+                    <div class="mt-4 p-4 bg-gray-200 border-l-4 border-gray-500 text-gray-800 rounded">
+                        Mock Form: Site maintenance toggle and API key configuration fields.
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- JavaScript for Menu/View Switching -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- View Switching Logic ---
+            const links = document.querySelectorAll('.sidebar-link');
+            const views = document.querySelectorAll('.admin-content-view');
+
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    const targetViewId = link.getAttribute('data-view');
+
+                    // Deactivate all links and hide all views
+                    links.forEach(l => l.classList.remove('active'));
+                    views.forEach(v => v.classList.remove('active'));
+
+                    // Activate selected link and show target view
+                    link.classList.add('active');
+                    document.getElementById(targetViewId).classList.add('active');
+                    
+                    // On mobile, you might want to hide the sidebar after click (not implemented here)
+                });
+            });
+
+            // --- Dropdown Toggle Logic ---
+            const menuButton = document.getElementById('admin-menu-button');
+            const menu = document.getElementById('admin-menu');
+
+            if (menuButton && menu) {
+                menuButton.addEventListener('click', function() {
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true' || false;
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    menu.classList.toggle('hidden');
+                });
+                
+                // Close the dropdown if the user clicks outside of it
+                window.addEventListener('click', function(e) {
+                    if (!menuButton.contains(e.target) && !menu.contains(e.target)) {
+                        menu.classList.add('hidden');
+                        menuButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            }
+        });
+    </script>
+    
+</body>
+</html>
