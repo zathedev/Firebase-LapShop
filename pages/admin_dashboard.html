@@ -39,7 +39,7 @@
             
             <!-- Admin Profile Dropdown -->
             <div class="flex items-center">
-                <span class="text-sm text-gray-600 mr-4 hidden md:inline">Welcome, <span class="font-semibold" id="user-name">Super User!</span></span>
+                <span class="text-sm text-gray-600 mr-4 hidden md:inline">Welcome, <span class="font-semibold" id="user-name"></span></span>
                 <div class="relative">
                     <button id="admin-menu-button" 
                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-purple-500 transition duration-150" 
@@ -47,9 +47,7 @@
                             aria-haspopup="true">
                         <span class="sr-only">Open admin menu</span>
                         <!-- Admin Profile Pic (Avatar placeholder) -->
-                        <div class="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-semibold shadow-md" id="user-name-initials">
-                            SU
-                        </div>
+                        <div class="h-10 w-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-semibold shadow-md" id="user-name-initials"></div>
                     </button>
 
                     <!-- Dropdown Menu -->
@@ -63,9 +61,11 @@
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">
                             <span class="inline-block w-4 mr-2">💬</span> Support Tickets
                         </a>
-                        <a href="index.html" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50" role="menuitem">
-                            <span class="inline-block w-4 mr-2">🚪</span> Logout
-                        </a>
+                        <button
+                                class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer"
+                                id="logout-btn" role="menuitem">
+                                <span class="inline-block w-4 mr-2">👋</span> Logout
+                        </button>
                     </div>
                 </div>
             </div>
@@ -243,6 +243,6 @@
             }
         });
     </script>
-    <script type="module" src=""></script>
+    <script type="module" src="../scripts/admindashboard.js"></script>
 </body>
 </html>
