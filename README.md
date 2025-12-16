@@ -21,6 +21,23 @@ This project is excellent for learning Firebase integration in frontend web apps
 
 ---
 
+## **Demo Accounts**
+
+* **Admin**
+- Name: Lapshop Admin
+- Email: lapshop.admin@gmail.com
+- Password: La@12345678
+
+* **Seller**
+- Name: Lapshop Seller
+- Email: lapshop.seller@gmail.com
+- Password: Ls@12345678
+
+* **Buyer**
+- Name: Lapshop Buyer
+- Email: lapshop.buyer@gmail.com
+- Password: Lb@12345678
+
 ## 🖼️ **Screenshots**
 
 > *(Replace `images/...` with your actual screenshot paths)*
