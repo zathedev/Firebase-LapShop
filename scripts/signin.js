@@ -56,8 +56,10 @@ form.addEventListener("submit", (event) => {
                 window.location = "../pages/seller_dashboard.html"
             } else if (userRole === 'admin') {
                 window.location = "../pages/admin_dashboard.html"
-            } else {
+            } else if (userRole === "buyer") {
                 window.location = "../pages/dashboard.html"
+            } else {
+                window.location = "../index.html"
             }
         })
         .catch((error) => {
